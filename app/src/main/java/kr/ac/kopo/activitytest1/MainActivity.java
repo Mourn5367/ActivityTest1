@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +14,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+
+    RadioGroup rg;
+    RadioButton rbSecond,rbThird;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +29,32 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        rg = findViewById(R.id.rg);
+        rbSecond = findViewById(R.id.rb_second);
+        rbThird = findViewById(R.id.rb_third);
+
+        rbSecond.setChecked(true);
 
         Button btnMain = findViewById(R.id.btn_main);
         btnMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
+                Intent intent = null;
+                if (rg.getCheckedRadioButtonId() == R.id.rb_second)
+                {
+                    intent = new Intent(getApplicationContext(), SecondActivity.class);
+                }
+                else
+                {
+                    intent = new Intent(getApplicationContext(), ThirdActivity.class);
+                }
                 startActivity(intent);
+
             }
         });
+
+
+
+
     }
 }
